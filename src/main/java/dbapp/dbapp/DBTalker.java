@@ -223,7 +223,7 @@ public record DBTalker(DBConnection dbConnection) {
             PreparedStatement pst = conn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
 
-            return toStringer(rs, "title", "place", "media_type", "name", "media_type", "cost");
+            return toStringer(rs, "title", "place", "media_type", "name", "cost");
         } catch (SQLException | ClassNotFoundException ex) {
             Alerter.alertError("Error while reading from DB \n" + ex.getMessage());
         }
