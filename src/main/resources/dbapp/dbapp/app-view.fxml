@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane id="tabsPane" fx:id="tabPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dbapp.dbapp.ViewController">
+  <tabs>
+    <Tab id="editingTab" text="Все Диски">
+      <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <Label layoutX="133.0" layoutY="14.0" text="Вывод">
+                  <font>
+                      <Font name="Calibri Light" size="20.0" />
+                  </font>
+              </Label>
+              <Label layoutX="367.0" layoutY="14.0" text="Параметры Поиска">
+                  <font>
+                      <Font name="Corbel Light" size="20.0" />
+                  </font>
+              </Label>
+              <Label layoutX="366.0" layoutY="250.0" text="Свои параметры (через ',')">
+                  <font>
+                      <Font name="Corbel Light" size="15.0" />
+                  </font>
+              </Label>
+              <TextField fx:id="locationField" layoutX="404.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" promptText="Полки" />
+              <Label layoutX="324.0" layoutY="84.0" prefHeight="18.0" prefWidth="60.0" text="Локация">
+                  <font>
+                      <Font name="Corbel Light" size="15.0" />
+                  </font>
+              </Label>
+              <TextArea fx:id="outputArea" layoutX="14.0" layoutY="44.0" prefHeight="281.0" prefWidth="292.0" />
+              <TextArea fx:id="customArea" layoutX="326.0" layoutY="278.0" prefHeight="81.0" prefWidth="187.0" promptText="На полке, mp3" />
+              <TextField fx:id="titleField" layoutX="404.0" layoutY="49.0" prefHeight="25.0" prefWidth="170.0" promptText="Sgt. Pepper's Lonely Hearts Club Band" />
+              <Label layoutX="324.0" layoutY="53.0" text="Название">
+                  <font>
+                      <Font name="Corbel Light" size="15.0" />
+                  </font>
+              </Label>
+              <Button fx:id="duplicatesBtn" layoutX="15.0" layoutY="334.0" mnemonicParsing="false" onAction="#getDuplicates" prefHeight="25.0" prefWidth="290.0" text="Показать Дубликаты" />
+              <Button fx:id="searchBtn" layoutX="323.0" layoutY="210.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="253.0" text="Поиск" />
+               <TextField fx:id="publisherField" layoutX="404.0" layoutY="112.0" prefHeight="25.0" prefWidth="170.0" promptText="Universal Media" />
+               <Label layoutX="325.0" layoutY="116.0" text="Издатель">
+                  <font>
+                     <Font name="Corbel Light" size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="mediaTypeField" layoutX="404.0" layoutY="144.0" prefHeight="25.0" prefWidth="170.0" promptText="CD" />
+               <Label layoutX="326.0" layoutY="148.0" text="Носитель">
+                  <font>
+                     <Font name="Corbel Light" size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="costFieldFrom" layoutX="435.0" layoutY="174.0" prefHeight="25.0" prefWidth="48.0" promptText="0" />
+               <Label layoutX="325.0" layoutY="177.0" text="Цена">
+                  <font>
+                     <Font name="Corbel Light" size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="costFieldTo" layoutX="524.0" layoutY="173.0" prefHeight="25.0" prefWidth="50.0" promptText="499" />
+               <Label layoutX="408.0" layoutY="178.0" text="От" />
+               <Label layoutX="498.0" layoutY="178.0" text="До" />
+               <Button fx:id="customSearchBtn" layoutX="524.0" layoutY="279.0" mnemonicParsing="false" onAction="#customSearch" prefHeight="78.0" prefWidth="50.0" text="Найти" />
+          </AnchorPane>
+      </content>
+    </Tab>
+      <Tab onSelectionChanged="#updateStats" text="Статистика">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="22.0" layoutY="20.0" text="Всего дисков:" />
+                  <Label fx:id="statsDisksNum" layoutX="107.0" layoutY="20.0" text="0" />
+                  <Label layoutX="22.0" layoutY="45.0" text="Находятся:" />
+                  <TextArea fx:id="statsPlacesArea" layoutX="22.0" layoutY="73.0" prefHeight="280.0" prefWidth="144.0" />
+                  <Label layoutX="193.0" layoutY="20.0" text="Средняя стоимость:" />
+                  <Label fx:id="statsAvgCostLabel" layoutX="312.0" layoutY="20.0" text="0" />
+                  <Label layoutX="193.0" layoutY="45.0" text="Привалирующий тип:" />
+                  <Label fx:id="statsPopTypeLabel" layoutX="319.0" layoutY="45.0" text="None" />
+                  <Label layoutX="193.0" layoutY="285.0" text="Фильмов" />
+                  <Label layoutX="193.0" layoutY="302.0" text="Аудиодисков" />
+                  <Label layoutX="193.0" layoutY="319.0" text="Дисков с ПО" />
+                  <Label layoutX="193.0" layoutY="336.0" text="Дисков с документами" />
+                  <Label fx:id="statsFilmNumLabel" layoutX="332.0" layoutY="285.0" text="0" />
+                  <Label fx:id="statsDocsNumLabel" layoutX="332.0" layoutY="336.0" text="0" />
+                  <Label fx:id="statsSoftNumLabel" layoutX="332.0" layoutY="319.0" text="0" />
+                  <Label fx:id="statsAudioNumLabel" layoutX="332.0" layoutY="302.0" text="0" />
+                  <Label layoutX="193.0" layoutY="73.0" text="Самый популярный издатель:" />
+                  <Label fx:id="statsPopPubLabel" layoutX="367.0" layoutY="73.0" text="None" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
