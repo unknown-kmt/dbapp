@@ -52,7 +52,7 @@ ALTER TABLE public.audio_disk OWNER TO postgres;
 --
 
 CREATE TABLE public.disk (
-    disk_id integer NOT NULL,
+    disk_id integer GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL,
     title character varying(50) NOT NULL,
     place character varying(20) NOT NULL,
     media_type character varying(10),
@@ -94,33 +94,12 @@ ALTER TABLE public.film_disk OWNER TO postgres;
 --
 
 CREATE TABLE public.publisher (
-    publisher_id integer NOT NULL,
+    publisher_id integer GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL,
     name text
 );
 
 
 ALTER TABLE public.publisher OWNER TO postgres;
-
---
--- Name: seq_next_id; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.seq_next_id
-    START WITH 9
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_next_id OWNER TO postgres;
-
---
--- Name: seq_next_id; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.seq_next_id OWNED BY public.disk.disk_id;
-
 
 --
 -- Name: software_disk; Type: TABLE; Schema: public; Owner: postgres
@@ -134,22 +113,16 @@ CREATE TABLE public.software_disk (
 
 ALTER TABLE public.software_disk OWNER TO postgres;
 
---
--- Name: disk disk_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.disk ALTER COLUMN disk_id SET DEFAULT nextval('public.seq_next_id'::regclass);
-
 
 --
 -- Data for Name: audio_disk; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.audio_disk (disk_id, disk_type, audios_on_disk) FROM stdin;
-1	Аудиокнига	Аудиокнига
-2	Аудиокнига	Аудиокнига по Программированию
-3	Сборник Аудиокниг	Все стихи пушкина
-4	mp3	Альбом группы Rammstein
+8	Аудиокнига	Аудиокнига
+1	Аудиокнига	Аудиокнига по Программированию
+2	Сборник Аудиокниг	Все стихи пушкина
+3	mp3	Альбом группы Rammstein
 \.
 
 
@@ -157,17 +130,17 @@ COPY public.audio_disk (disk_id, disk_type, audios_on_disk) FROM stdin;
 -- Data for Name: disk; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.disk (disk_id, title, place, media_type, publisher_id, scan_url, cost, comment) FROM stdin;
-2	Исскуство Программирования	На полке	\N	\N	\N	\N	\N
-3	Сборник Стихов Пушкина	В проигрывателе	\N	\N	\N	\N	\N
-4	Альбом Группы Rammstein	На полке	\N	\N	\N	\N	\N
-5	Финансовая отчётность за 1 квартал	В сейфе	\N	\N	\N	\N	\N
-6	Все мои пароли	В сейфе	\N	\N	\N	\N	\N
-9	Виды Ярославля	На столе	\N	\N	\N	\N	\N
-7	Microsoft Access	В компьютере	\N	\N	\N	\N	\N
-1	Приключения Гарри Поттера	У Друга	CD	4	\N	499.99	Диск с аудиокнигой о похождениях Гарри Поттера
-8	Windows 11	На полке	CD-ROM	5	\N	5000	Любимая винда
-10	Терминатор	В проигрывателе	CD-DVD	3	\N	500	Диск с фильмом Терминатор
+COPY public.disk (title, place, media_type, publisher_id, scan_url, cost, comment) FROM stdin;
+Исскуство Программирования	На полке	\N	\N	\N	\N	\N
+Сборник Стихов Пушкина	В проигрывателе	\N	\N	\N	\N	\N
+Альбом Группы Rammstein	На полке	\N	\N	\N	\N	\N
+Финансовая отчётность за 1 квартал	В сейфе	\N	\N	\N	\N	\N
+Все мои пароли	В сейфе	\N	\N	\N	\N	\N
+Виды Ярославля	На столе	\N	\N	\N	\N	\N
+Microsoft Access	В компьютере	\N	\N	\N	\N	\N
+Приключения Гарри Поттера	У Друга	CD	4	\N	499.99	Диск с аудиокнигой о похождениях Гарри Поттера
+Windows 11	На полке	CD-ROM	5	\N	5000	Любимая винда
+Терминатор	В проигрывателе	CD-DVD	3	\N	500	Диск с фильмом Терминатор
 \.
 
 
@@ -176,9 +149,9 @@ COPY public.disk (disk_id, title, place, media_type, publisher_id, scan_url, cos
 --
 
 COPY public.document_disk (disk_id, doc_on_disk) FROM stdin;
-5	Финансовая отчётность за 1 квартал 2021 года
-6	Все пароли, используемые мной
-9	Диск с фотографиями Ярославля
+4	Финансовая отчётность за 1 квартал 2021 года
+5	Все пароли, используемые мной
+6	Диск с фотографиями Ярославля
 \.
 
 
@@ -195,12 +168,12 @@ COPY public.film_disk (disk_id, genre) FROM stdin;
 -- Data for Name: publisher; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.publisher (publisher_id, name) FROM stdin;
-1	MegaDisks
-2	Music Company
-3	Universal Media
-4	Santa Claus Corp
-5	Microsoft
+COPY public.publisher (name) FROM stdin;
+MegaDisks
+Music Company
+Universal Media
+Santa Claus Corp
+Microsoft
 \.
 
 
@@ -210,15 +183,8 @@ COPY public.publisher (publisher_id, name) FROM stdin;
 
 COPY public.software_disk (disk_id, soft_on_disk) FROM stdin;
 7	Диск с переносной версией ПО Microsoft Access
-8	Диск образом Windows 11
+9	Диск образом Windows 11
 \.
-
-
---
--- Name: seq_next_id; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.seq_next_id', 10, true);
 
 
 --

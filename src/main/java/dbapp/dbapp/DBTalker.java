@@ -247,9 +247,7 @@ public record DBTalker(DBConnection dbConnection) {
                     }'::text[])
                     GROUP BY title, place, media_type, disksdb.public.publisher.name, disksdb.public.audio_disk.audios_on_disk, disksdb.public.document_disk.doc_on_disk, disksdb.public.software_disk.soft_on_disk, disk.comment;
                     """);
-
-            //Array sqlParams = conn.createArrayOf("text", params.split(","));
-            // pst.setArray(1, sqlParams);
+            
             ResultSet rs = pst.executeQuery();
 
             return toStringer(rs, "title", "place", "media_type", "name", "audios_on_disk", "doc_on_disk", "soft_on_disk");
